@@ -5,9 +5,6 @@ import requests
 import pandas as pd
 import config
 
-# code snippet to deep page through solr search results
-
-
 
 def deeppage(solr_url, query, fields, batch_size_requested=500):
     '''
