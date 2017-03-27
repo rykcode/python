@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 ''' 
-A better version of the Sampleing classifier using pandas. Creates an SVM classifier to subsample a low prevalence labeled dataset. Use Sub-sampling to balance out the prevalence of the labeled data and create several classifiers.
+A better version of the Sampleing classifier using pandas. 
+Creates an SVM classifier to subsample a low prevalence labeled dataset. 
+Use Sub-sampling to balance out the prevalence of the labeled data 
+and create several classifiers.
 '''
 import sys
 import pandas as pd
@@ -39,13 +42,17 @@ def create_classifiers(train_data):
     for i in range(0, 10):
         train_i = np.concatenate([positive_instance_ids, negative_lists[i]])
         print('iter: %d' % i)
-        X_train_i = count_vect.transform(train_data[train_data.instance_id.isin(train_i)]['short_description'])
+        X_train_i = count_vect.transform(
+            train_data[train_data.instance_id.isin(train_i)]['short_description'])
         y_i = train_data[train_data.instance_id.isin(train_i)]['label'] == label
         print('obtained X_train_%d and y_%d' % (i,i))
         clfs_text[i].fit(X_train_i, y_i)
         print('trained text classifier %d' % i)
-        X_train_cat_i = train_data[train_data.instance_id.isin(train_i)].drop(['instance_id', 'label', 'short_description'], axis=1)
-        print('obtained X_train_cat_%d and y_%d X_train_cat_i = (%d,%d)' % (i,i, X_train_cat_i.shape[0], X_train_cat_i.shape[1]))
+        X_train_cat_i = train_data[train_data.instance_id.isin(train_i)]
+                                    .drop(['instance_id', 'label', 'short_description']
+                                    , axis=1)
+        print('obtained X_train_cat_%d and y_%d X_train_cat_i = (%d,%d)' 
+                % (i,i, X_train_cat_i.shape[0], X_train_cat_i.shape[1]))
         clfs_cat[i].fit(X_train_cat_i, y_i)
         print('trained category classifier %d' % i)
 
@@ -57,12 +64,14 @@ def predict(data, clfs_text, clfs_cat, out_filename):
     X_cat = data.drop(['instance_id', 'label', 'short_description'], axis=1)
     print('obtained data')
 
-    predictions_text = [clfs_text[i].predict_proba(X_text)[:, 1] for i in range(0, 10)]
+    predictions_text = [clfs_text[i].predict_proba(X_text)[:, 1] 
+                                    for i in range(0, 10)]
     mean_predictions_text = np.mean(predictions_text, axis=0)
     data['text_predictions'] = mean_predictions_text.tolist()
     print('obtained text predictions')
 
-    predictions_cat = [clfs_cat[i].predict_proba(X_cat)[:, 1] for i in range(0, 10)]
+    predictions_cat = [clfs_cat[i].predict_proba(X_cat)[:, 1] 
+                                    for i in range(0, 10)]
     mean_predictions_cat = np.mean(predictions_cat, axis=0)
     data['cat_predictions'] = mean_predictions_cat.tolist()
     print('obtained category predictions')

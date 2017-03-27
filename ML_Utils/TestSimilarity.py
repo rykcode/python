@@ -56,8 +56,12 @@ vocab_global_df = read_dict(fin.readline().strip("\n").replace("GlobalDF:", ""))
 fin.close()
 
 fin = open(refvec_global_file)
-refvec_global_tf_before = read_dict(fin.readline().strip("\n").replace("referenceTfidf before:", ""))[1]
-refvec_global_tf_after = read_dict(fin.readline().strip("\n").replace("referenceTfidf after:", ""))[1]
+refvec_global_tf_before = read_dict(fin.readline().strip("\n")
+                                    .replace("referenceTfidf before:", ""))[1]
+
+refvec_global_tf_after = read_dict(fin.readline()
+                                    .strip("\n").replace("referenceTfidf after:", ""))[1]
+
 refvec_global_df = read_dict(fin.readline().strip("\n").replace("globalDF:", ""))[1]
 fin.close()
 

@@ -58,7 +58,8 @@ def description_analyzer(text):
 
 
 def get_random_mask(mask_size, percent):
-    ''' Returns a 1D array of given size consisting of mostly True and randomly marked without replacement False values. 
+    ''' Returns a 1D array of given size consisting of mostly True 
+    and randomly marked without replacement False values. 
         Parameters:
             -----------
             mask_size: int

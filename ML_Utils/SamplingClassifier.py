@@ -5,11 +5,15 @@ import numpy as np
 
 
 class SamplingClassifier:
-    ''' Creates an SVM classifier to subsample a low prevalence labeled dataset. Use Sub-sampling to balance out the prevalence of the labeled data and create several classifiers.
+    '''
+    Creates an SVM classifier to subsample a low prevalence labeled dataset. 
+    Use Sub-sampling to balance out the prevalence of the labeled data 
+    and create several classifiers.
     '''
     def __init__(self, classifier, classifier_args, n_classifiers=10, sample_percent=0.1):
         self.n_classifiers = n_classifiers
-        self.classifiers = [classifier(**classifier_args) for i in range(0,self.n_classifiers)]
+        self.classifiers = [classifier(**classifier_args) 
+                                for i in range(0,self.n_classifiers)]
         self.sample_percent = sample_percent
 
 
